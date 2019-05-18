@@ -1,0 +1,30 @@
+<form class="needs-validation" novalidate>
+  <div class="form-row">
+    <div class="form-group col-md-2">
+      <label for="inputState">Nombre del Hospital</label>
+      <select name="eps" [(ngModel)]="data.nombre" id="inputState" class="form-control" data-live-search="true" >
+
+        <option *ngFor="let c of hospitales" [ngValue]="c">{{c.nombre}}</option>
+        
+      </select>
+  </div>
+</div>
+  <div class="form-row">
+    <div class="form-group col-md-2">
+      <label for="inputState">Área</label>
+      <select name="eps" [(ngModel)]="data.area" id="inputState" class="form-control" data-live-search="true" >
+
+        <option selected>Urgencia</option>
+          <option>UCI</option>
+          <option>Maternidad</option>
+          <option>Cirugía</option>
+        
+      </select>
+  </div>
+    <div class="form-group col-md-2">
+      <label for="formGroupExampleInput2">Camas</label>
+      <input type="number" name="camas" [(ngModel)]="data.camas" class="form-control" id="formGroupExampleInput2" placeholder="">
+    </div>
+  </div>
+<button class="btn btn-info" type="submit" (click)="registrar()">Registrar</button>
+</form>

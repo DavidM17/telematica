@@ -1,0 +1,75 @@
+<form class="needs-validation" novalidate>
+  <div class="form-row">
+    <button *ngIf="!actualizar" class="btn btn-arrow-left btn-warning" type="submit" (click)="actualizar=true">Actualizar Paciente</button>
+  </div>
+  <div class="form-row">
+    <button *ngIf="actualizar" class="btn btn-success" type="submit" (click)="actualizar=false">Registrar Paciente</button>
+  </div>
+    <div *ngIf="actualizar==false" class="form-row">
+  <div class="form-group col-md-4">
+    <label for="formGroupExampleInput">Nombre</label>
+    <input type="text" name="nombre" [(ngModel)]="data.nombre" class="form-control" id="formGroupExampleInput" placeholder="" required>
+  </div>
+  
+</div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="formGroupExampleInput2">Cédula</label>
+      <input type="text" name="cedula" [(ngModel)]="data.cedula" class="form-control" id="formGroupExampleInput2" placeholder="">
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputState">Eps</label>
+      <select name="eps" [(ngModel)]="data.eps" id="inputState" class="form-control">
+        <option selected>Eps 1</option>
+        <option>Eps 2</option>
+        <option>Eps 3</option>
+        <option>Eps 4</option>
+      </select>
+  </div>
+    
+  </div>
+  <label *ngIf="actualizar==false">Fecha de Ingreso:</label>
+  <div *ngIf="actualizar==false" class="form-row">
+    <form class="form-inline">
+      <div class="form-group">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd"
+                 name="dp" [(ngModel)]="model1" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+    </form>
+    </div>
+    <label *ngIf="actualizar">Fecha de Salida:</label>
+    <div *ngIf="actualizar" class="form-row">
+    <form class="form-inline">
+      <div class="form-group">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd"
+                 name="dp" [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+    </form>
+</div>
+
+<div class="form-row">
+
+<div class="form-group col-md-2">
+  <label for="formGroupExampleInput">Cama Asignada</label>
+  <input type="text" name="idcama" [(ngModel)]="data.idcama" class="form-control" id="formGroupExampleInput" placeholder="">
+</div>
+</div>
+<div class="form-row">
+<div *ngIf="actualizar" class="form-check form-check-inline">
+  <input name="alta" [(ngModel)]="data.alta" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+  <label  class="form-check-label" for="inlineCheckbox1">Dar de Alta</label>
+</div>
+</div>
+<button *ngIf="!actualizar" class="btn btn-info" type="submit" (click)="registrar()">Registrar</button>
+<button *ngIf="actualizar" class="btn btn-info" type="submit" (click)="actualizarpaciente()">Actualizar</button>
+</form> 

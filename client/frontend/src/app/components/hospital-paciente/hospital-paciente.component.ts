@@ -18,9 +18,11 @@ export class HospitalPacienteComponent implements OnInit {
     cedula:0,
     eps:"",
     idcama:"",
-    alta:false
+    alta:false,
+    hospital:""
   }
 
+  hospitales:any=[];
   actualizar=false;
   fecha1:any;
   fecha2:any;
@@ -44,7 +46,7 @@ export class HospitalPacienteComponent implements OnInit {
   
     this.fecha1=this.model1.year+"-"+this.model1.month+"-"+this.model1.day;
 
-    this.dataservice.crearPaciente(this.data.nombre,this.data.cedula,this.eps,this.fecha1,"",this.data.idcama,this.data.alta).subscribe(
+    this.dataservice.crearPaciente(this.data.hospital,this.data.nombre,this.data.cedula,this.eps,this.fecha1,"",this.data.idcama,this.data.alta).subscribe(
       res => {console.log(res)
       },
       err => console.error(err)
@@ -81,6 +83,12 @@ export class HospitalPacienteComponent implements OnInit {
 
   ngOnInit() {
     this.actualizar=false;
+    this.dataservice.getHospital().subscribe(
+      res => {
+        this.hospitales=res;
+      },
+      err => console.error(err)
+    );
   }
 
 }

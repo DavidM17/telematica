@@ -18,7 +18,7 @@ class dataController{
          const data = {
             nombre: nombre,
             camasasignadas:camas,
-            area: area,
+            area:area
             
         }
         await pool.query('INSERT INTO configuracion.areahospital set ?',data);
@@ -40,6 +40,7 @@ class dataController{
     }
 
     public async crearpaciente (req: Request,res: Response){
+        const hospital=req.body.hospital.nombre;
         const nombre=req.body.nombre;
         const cedula=req.body.cedula;
         const eps=req.body.ideps;
@@ -48,8 +49,10 @@ class dataController{
         const idcama=req.body.idcama;
         const alta=req.body.alta;
 
+        console.log(hospital)
          // Json 
          const data = {
+            hospital:hospital,
             nombre: nombre,
             cedula:cedula,
             eps:eps,
@@ -59,6 +62,7 @@ class dataController{
             usuarioalta:alta
         }
         await pool.query('INSERT INTO configuracion.paciente set ?',data);
+        await pool.query("UPDATE configuracion.camas set estado='Ocupado' WHERE identificacioncama = ?",idcama);
         res.json("Agregado");
     }
 
@@ -77,6 +81,9 @@ class dataController{
             usuarioalta:alta
         }
         await pool.query('UPDATE configuracion.paciente set ? WHERE cedula = ?',[data,cedula]);
+        if (alta==1){
+            await pool.query("UPDATE configuracion.camas set estado='Libre' WHERE identificacioncama = ?",idcama);
+        }
         res.json("Agregado");
     }
 
@@ -90,7 +97,11 @@ class dataController{
         const longitud=req.body.longitud;
         const eps=req.body.ideps;
         const nivel=req.body.nivel;
-        const areas=req.body.idareas;
+    
+        const urgencia=req.body.urgencia;
+        const uci=req.body.uci;
+        const maternidad=req.body.maternidad;
+        const cirugia=req.body.cirugia;
       
         // Json 
         const data = {
@@ -102,13 +113,26 @@ class dataController{
             longitud:longitud,
             ideps:eps,
             nivel:nivel,
-            idareas:areas
+            urgencia:urgencia,
+            uci:uci,
+            maternidad:maternidad,
+            cirugia:cirugia
         }
         
         await pool.query('INSERT INTO configuracion.hospital set ?',data);
         res.json("Agregado");
         
     
+    }
+
+    public async prueba (req: Request,res: Response){
+        const nombre=req.body.nombre;
+         
+        const data = await pool.query("SELECT d.area, c.identificacioncama, c.estado "+
+        "FROM configuracion.camas as c "+
+        "JOIN configuracion.areahospital as d ON d.area = c.id "+
+        "WHERE d.nombre = "+"'"+nombre+"'")
+        res.json(data);
     }
 }
 

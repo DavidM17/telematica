@@ -1,4 +1,5 @@
 <form class="needs-validation" novalidate>
+  <div class="t">
   <div class="form-row">
     <button *ngIf="!actualizar" class="btn btn-arrow-left btn-warning" type="submit" (click)="actualizar=true">Actualizar Paciente</button>
   </div>
@@ -7,10 +8,17 @@
   </div>
     <div *ngIf="actualizar==false" class="form-row">
   <div class="form-group col-md-4">
-    <label for="formGroupExampleInput">Nombre</label>
+    <label for="formGroupExampleInput">Nombre Paciente</label>
     <input type="text" name="nombre" [(ngModel)]="data.nombre" class="form-control" id="formGroupExampleInput" placeholder="" required>
   </div>
-  
+  <div class="form-group col-md-4">
+      <label for="inputState">Nombre del Hospital</label>
+      <select name="hospital" [(ngModel)]="data.hospital" id="inputState" class="form-control" data-live-search="true" >
+
+        <option *ngFor="let c of hospitales" [ngValue]="c">{{c.nombre}}</option>
+        
+      </select>    
+  </div>
 </div>
   <div class="form-row">
     <div class="form-group col-md-4">
@@ -72,4 +80,5 @@
 </div>
 <button *ngIf="!actualizar" class="btn btn-info" type="submit" (click)="registrar()">Registrar</button>
 <button *ngIf="actualizar" class="btn btn-info" type="submit" (click)="actualizarpaciente()">Actualizar</button>
+</div>
 </form> 

@@ -20,6 +20,7 @@ class indexRoutes {
         this.router.post('/api/hospital/camas',datacontroller.crearcama);
         this.router.post('/api/hospital/paciente',datacontroller.crearpaciente);  
         this.router.put('/api/hospital/paciente',datacontroller.actualizarpaciente);
+        this.router.post('/api/hospital/visualizacion',datacontroller.prueba)
     }
 
 

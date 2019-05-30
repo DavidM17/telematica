@@ -28,7 +28,7 @@ class dataController {
             const data = {
                 nombre: nombre,
                 camasasignadas: camas,
-                area: area,
+                area: area
             };
             yield database_1.default.query('INSERT INTO configuracion.areahospital set ?', data);
             res.json("Agregado");
@@ -50,6 +50,7 @@ class dataController {
     }
     crearpaciente(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const hospital = req.body.hospital.nombre;
             const nombre = req.body.nombre;
             const cedula = req.body.cedula;
             const eps = req.body.ideps;
@@ -57,8 +58,10 @@ class dataController {
             const fecha2 = req.body.fechas;
             const idcama = req.body.idcama;
             const alta = req.body.alta;
+            console.log(hospital);
             // Json 
             const data = {
+                hospital: hospital,
                 nombre: nombre,
                 cedula: cedula,
                 eps: eps,
@@ -68,6 +71,7 @@ class dataController {
                 usuarioalta: alta
             };
             yield database_1.default.query('INSERT INTO configuracion.paciente set ?', data);
+            yield database_1.default.query("UPDATE configuracion.camas set estado='Ocupado' WHERE identificacioncama = ?", idcama);
             res.json("Agregado");
         });
     }
@@ -86,6 +90,9 @@ class dataController {
                 usuarioalta: alta
             };
             yield database_1.default.query('UPDATE configuracion.paciente set ? WHERE cedula = ?', [data, cedula]);
+            if (alta == 1) {
+                yield database_1.default.query("UPDATE configuracion.camas set estado='Libre' WHERE identificacioncama = ?", idcama);
+            }
             res.json("Agregado");
         });
     }
@@ -99,7 +106,10 @@ class dataController {
             const longitud = req.body.longitud;
             const eps = req.body.ideps;
             const nivel = req.body.nivel;
-            const areas = req.body.idareas;
+            const urgencia = req.body.urgencia;
+            const uci = req.body.uci;
+            const maternidad = req.body.maternidad;
+            const cirugia = req.body.cirugia;
             // Json 
             const data = {
                 nombre: nombre,
@@ -110,10 +120,23 @@ class dataController {
                 longitud: longitud,
                 ideps: eps,
                 nivel: nivel,
-                idareas: areas
+                urgencia: urgencia,
+                uci: uci,
+                maternidad: maternidad,
+                cirugia: cirugia
             };
             yield database_1.default.query('INSERT INTO configuracion.hospital set ?', data);
             res.json("Agregado");
+        });
+    }
+    prueba(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const nombre = req.body.nombre;
+            const data = yield database_1.default.query("SELECT d.area, c.identificacioncama, c.estado " +
+                "FROM configuracion.camas as c " +
+                "JOIN configuracion.areahospital as d ON d.area = c.id " +
+                "WHERE d.nombre = " + "'" + nombre + "'");
+            res.json(data);
         });
     }
 }

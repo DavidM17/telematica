@@ -23,8 +23,8 @@ export class DataService {
     return this.http.post(`${this.API_URI}/hospital/camas`,{nombre,area,idcama,ubicacion,estado})
   }
 
-  crearPaciente(nombre:string,cedula:number,ideps:number,fechai:string,fechas:string,idcama:string,alta:boolean){
-    return this.http.post(`${this.API_URI}/hospital/paciente`,{nombre,cedula,ideps,fechai,fechas,idcama,alta})
+  crearPaciente(hospital:string,nombre:string,cedula:number,ideps:number,fechai:string,fechas:string,idcama:string,alta:boolean){
+    return this.http.post(`${this.API_URI}/hospital/paciente`,{hospital,nombre,cedula,ideps,fechai,fechas,idcama,alta})
   }
 
   actualizarPaciente(cedula:number,ideps:number,fechas:string,idcama:string,alta:boolean){
@@ -32,9 +32,9 @@ export class DataService {
   }
 
   crearHospital(nombre:string,direccion:string,ciudad:string,departamento:string,
-    latitud:number,longitud:number,ideps:number,nivel:number,idareas:number){
+    latitud:number,longitud:number,ideps:number,nivel:number,urgencia:number,uci:number,maternidad:number,cirugia:number){
     return this.http.post(`${this.API_URI}/hospital`,{nombre,direccion,ciudad,departamento,
-      latitud,longitud,ideps,nivel,idareas})
+      latitud,longitud,ideps,nivel,urgencia,uci,maternidad,cirugia})
       
   }
 }

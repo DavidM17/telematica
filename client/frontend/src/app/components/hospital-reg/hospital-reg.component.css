@@ -2,3 +2,11 @@
     padding: 10px;
     margin-top: 20px;
 }
+
+.t{
+    padding:20px;
+}
+form{
+    margin-right: 500px;
+    background: linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,.9));
+}

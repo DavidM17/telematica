@@ -36,7 +36,7 @@ export class HospitalAreaComponent implements OnInit {
     }
     this.dataservice.crearAreas(this.data.nombre.nombre,this.area,this.data.camas).subscribe(
       res => {console.error(res)
-      },
+      }, 
       err => console.error(err)
     );
   }
@@ -45,6 +45,7 @@ export class HospitalAreaComponent implements OnInit {
     this.dataservice.getHospital().subscribe(
       res => {
         this.hospitales=res;
+      
       },
       err => console.error(err)
     );

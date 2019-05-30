@@ -27,9 +27,12 @@ export class HospitalRegComponent implements OnInit {
     cirugia:false
   };
 
-  area:number=1;
   eps:number=0;
 
+  urgencia:number=0;
+  uci:number=0;
+  maternidad:number=0;
+  cirugia:number=0;
   
   registrar(){
     console.log(this.data);
@@ -50,24 +53,28 @@ export class HospitalRegComponent implements OnInit {
     }
 
     if(this.data.urgencia==true){
-      this.area = this.area*2;
+      this.urgencia = 1; // agregar los cambios en las tablas de areas
     }
     if(this.data.maternidad==true){
-      this.area=this.area*4;
+      this.maternidad=1;
     }
     if(this.data.uci==true){
-      this.area=this.area*3;
+      this.uci=1;
     }
     if(this.data.cirugia==true){
-      this.area=this.area*4;
+      this.cirugia=1;
     }
     
     this.dataservice.crearHospital(this.data.nombre,this.data.direccion,this.data.ciudad,this.data.departamento,
-      this.data.latitud,this.data.longitud,this.eps,this.data.nivel,this.area).subscribe(
+      this.data.latitud,this.data.longitud,this.eps,this.data.nivel,this.urgencia,this.uci,this.maternidad,this.cirugia).subscribe(
       res => {console.log(res)
       },
       err => console.error(err)
     );
+    this.cirugia=0;
+    this.uci=0;
+    this.cirugia=0;
+    this.maternidad=0;
   }
   
 

@@ -38,16 +38,16 @@ export class HospitalRegComponent implements OnInit {
     console.log(this.data);
     switch (this.data.eps){
 
-      case "Eps 1":
+      case "Sura":
         this.eps=1;
       break;
-      case "Eps 2":
+      case "Comeva":
         this.eps=2;
       break;
-      case "Eps 3":
+      case "SaludTotal":
         this.eps=3;
       break;
-      case "Eps 4":
+      case "Publica":
         this.eps=4;
       break;
     }

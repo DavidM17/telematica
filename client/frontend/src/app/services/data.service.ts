@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DataService {
 
-  API_URI = 'http://localhost:3000/api';
+  API_URI = 'http://ec2-18-228-196-243.sa-east-1.compute.amazonaws.com:3000/api';
   
 
   constructor(private http: HttpClient) { }
